@@ -160,3 +160,19 @@ CREATE SEQUENCE tb_user_session_seq
 
 ALTER SEQUENCE tb_user_session_seq OWNER TO postgres;
 GRANT ALL ON SEQUENCE tb_user_session_seq TO postgres;
+
+
+-- tb_application definition
+CREATE TABLE tb_application
+(
+    application_name varchar(255) NULL,
+    hash_id          varchar(255) NOT NULL,
+    CONSTRAINT tb_application_pkey PRIMARY KEY (hash_id)
+);
+
+-- Permissions
+
+ALTER TABLE oauth.tb_application OWNER TO postgres;
+GRANT
+ALL
+ON TABLE oauth.tb_application TO postgres;
