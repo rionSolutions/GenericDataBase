@@ -97,6 +97,7 @@ CREATE TABLE tb_session (
                             dt_expiration_regt timestamp(6) NULL,
                             dt_include_regt timestamp(6) NULL,
                             id int8 NOT NULL,
+                            app_hash_id VARCHAR(255) NOT NULL ,
                             credentials varchar(255) NULL,
                             CONSTRAINT tb_session_pkey PRIMARY KEY (id),
                             CONSTRAINT fkm8eadlrxgv6ox75q3eo32yodn FOREIGN KEY (credentials) REFERENCES tb_user_role(credentials)
