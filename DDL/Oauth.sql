@@ -171,10 +171,15 @@ CREATE TABLE oauth.tb_session (
                                   application_id varchar(255) NULL,
                                   credential_id varchar(255) NULL,
                                   CONSTRAINT tb_session_pkey PRIMARY KEY (id),
-                                  CONSTRAINT fkeeajx9el8utebm4jxai456oef FOREIGN KEY (application_id) REFERENCES oauth.tb_app_role(application_id)
+                                  CONSTRAINT tb_session_unique UNIQUE (application_id, credential_id)
 );
 
 -- Permissions
 
 ALTER TABLE oauth.tb_session OWNER TO postgres;
 GRANT ALL ON TABLE oauth.tb_session TO postgres;
+
+
+-- oauth.tb_session foreign keys
+
+ALTER TABLE oauth.tb_session ADD CONSTRAINT fkeeajx9el8utebm4jxai456oef FOREIGN KEY (application_id) REFERENCES oauth.tb_app_role(application_id);
