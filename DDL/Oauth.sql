@@ -6,16 +6,17 @@ DROP SCHEMA IF EXISTS oauth CASCADE;
 CREATE SCHEMA oauth AUTHORIZATION postgres;
 
 SET schema 	'oauth';
---- oauth.tb_application definition
+
+-- oauth.tb_application definition
 
 -- Drop table
 
--- DROP TABLE tb_application;
+-- DROP TABLE oauth.tb_application;
 
-CREATE TABLE tb_application (
-                                application_id varchar(255) NOT NULL,
-                                application_name varchar(255) NULL,
-                                CONSTRAINT tb_application_pkey PRIMARY KEY (application_id)
+CREATE TABLE oauth.tb_application (
+                                      application_id varchar(255) NOT NULL,
+                                      application_name varchar(255) NULL,
+                                      CONSTRAINT tb_application_pkey PRIMARY KEY (application_id)
 );
 
 -- Permissions
@@ -28,12 +29,12 @@ GRANT ALL ON TABLE oauth.tb_application TO postgres;
 
 -- Drop table
 
--- DROP TABLE tb_permissions;
+-- DROP TABLE oauth.tb_permissions;
 
-CREATE TABLE tb_permissions (
-                                id int8 NOT NULL,
-                                perm_name varchar(255) NULL,
-                                CONSTRAINT tb_permissions_pkey PRIMARY KEY (id)
+CREATE TABLE oauth.tb_permissions (
+                                      id int8 NOT NULL,
+                                      perm_name varchar(255) NULL,
+                                      CONSTRAINT tb_permissions_pkey PRIMARY KEY (id)
 );
 
 -- Permissions
@@ -46,12 +47,12 @@ GRANT ALL ON TABLE oauth.tb_permissions TO postgres;
 
 -- Drop table
 
--- DROP TABLE tb_roles;
+-- DROP TABLE oauth.tb_roles;
 
-CREATE TABLE tb_roles (
-                          id int8 NOT NULL,
-                          role_name varchar(255) NULL,
-                          CONSTRAINT tb_roles_pkey PRIMARY KEY (id)
+CREATE TABLE oauth.tb_roles (
+                                id int8 NOT NULL,
+                                role_name varchar(255) NULL,
+                                CONSTRAINT tb_roles_pkey PRIMARY KEY (id)
 );
 
 -- Permissions
@@ -118,15 +119,15 @@ GRANT ALL ON SEQUENCE oauth.tb_user_session_seq TO postgres;
 
 -- Drop table
 
--- DROP TABLE tb_app_role;
+-- DROP TABLE oauth.tb_app_role;
 
-CREATE TABLE tb_app_role (
-                             dt_include_regt timestamp(6) NULL,
-                             role_code int8 NULL,
-                             application_id varchar(255) NOT NULL,
-                             CONSTRAINT tb_app_role_pkey PRIMARY KEY (application_id),
-                             CONSTRAINT fk3h4co2gbyd4t09kj57a532lmr FOREIGN KEY (role_code) REFERENCES tb_roles(id),
-                             CONSTRAINT fko2rovqvast64s0jktbamuursw FOREIGN KEY (application_id) REFERENCES tb_application(application_id)
+CREATE TABLE oauth.tb_app_role (
+                                   dt_include_regt timestamp(6) NULL,
+                                   role_code int8 NULL,
+                                   application_id varchar(255) NOT NULL,
+                                   CONSTRAINT tb_app_role_pkey PRIMARY KEY (application_id),
+                                   CONSTRAINT fk3h4co2gbyd4t09kj57a532lmr FOREIGN KEY (role_code) REFERENCES oauth.tb_roles(id),
+                                   CONSTRAINT fko2rovqvast64s0jktbamuursw FOREIGN KEY (application_id) REFERENCES oauth.tb_application(application_id)
 );
 
 -- Permissions
@@ -139,15 +140,15 @@ GRANT ALL ON TABLE oauth.tb_app_role TO postgres;
 
 -- Drop table
 
--- DROP TABLE tb_permission_roles;
+-- DROP TABLE oauth.tb_permission_roles;
 
-CREATE TABLE tb_permission_roles (
-                                     id int8 NOT NULL,
-                                     permission_id int8 NULL,
-                                     role_id int8 NULL,
-                                     CONSTRAINT tb_permission_roles_pkey PRIMARY KEY (id),
-                                     CONSTRAINT fk4mbyinmp5sga0fixknq4wcai FOREIGN KEY (role_id) REFERENCES tb_roles(id),
-                                     CONSTRAINT fk62q0l8g4uew289kw0y9nal8ko FOREIGN KEY (permission_id) REFERENCES tb_permissions(id)
+CREATE TABLE oauth.tb_permission_roles (
+                                           id int8 NOT NULL,
+                                           permission_id int8 NULL,
+                                           role_id int8 NULL,
+                                           CONSTRAINT tb_permission_roles_pkey PRIMARY KEY (id),
+                                           CONSTRAINT fk4mbyinmp5sga0fixknq4wcai FOREIGN KEY (role_id) REFERENCES oauth.tb_roles(id),
+                                           CONSTRAINT fk62q0l8g4uew289kw0y9nal8ko FOREIGN KEY (permission_id) REFERENCES oauth.tb_permissions(id)
 );
 
 -- Permissions
@@ -160,17 +161,17 @@ GRANT ALL ON TABLE oauth.tb_permission_roles TO postgres;
 
 -- Drop table
 
--- DROP TABLE tb_session;
+-- DROP TABLE oauth.tb_session;
 
-CREATE TABLE tb_session (
-                            active bool NULL,
-                            dt_expiration_regt timestamp(6) NULL,
-                            dt_include_regt timestamp(6) NULL,
-                            id int8 NOT NULL,
-                            application_id varchar(255) NULL,
-                            credential_id varchar(255) NULL,
-                            CONSTRAINT tb_session_pkey PRIMARY KEY (id),
-                            CONSTRAINT fkeeajx9el8utebm4jxai456oef FOREIGN KEY (application_id) REFERENCES tb_app_role(application_id)
+CREATE TABLE oauth.tb_session (
+                                  active bool NULL,
+                                  dt_expiration_regt timestamp(6) NULL,
+                                  dt_include_regt timestamp(6) NULL,
+                                  id int8 NOT NULL,
+                                  application_id varchar(255) NULL,
+                                  credential_id varchar(255) NULL,
+                                  CONSTRAINT tb_session_pkey PRIMARY KEY (id),
+                                  CONSTRAINT fkeeajx9el8utebm4jxai456oef FOREIGN KEY (application_id) REFERENCES oauth.tb_app_role(application_id)
 );
 
 -- Permissions
