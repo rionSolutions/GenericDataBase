@@ -1,3 +1,11 @@
+DROP SCHEMA IF EXISTS oauth CASCADE;
+
+-- DROP SCHEMA oauth;
+
+
+CREATE SCHEMA oauth AUTHORIZATION postgres;
+
+SET schema 	'oauth';
 -- oauth.tb_application definition
 
 -- Drop table
