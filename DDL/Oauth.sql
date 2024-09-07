@@ -1,11 +1,3 @@
-DROP SCHEMA IF EXISTS oauth CASCADE;
-
--- DROP SCHEMA oauth;
-
-
-CREATE SCHEMA oauth AUTHORIZATION postgres;
-
-SET schema 	'oauth';
 -- oauth.tb_application definition
 
 -- Drop table
@@ -168,9 +160,7 @@ CREATE TABLE oauth.tb_session (
                                   dt_include_regt timestamp(6) NULL,
                                   id int8 NOT NULL,
                                   application_id varchar(255) NULL,
-                                  credential_id varchar(255) NULL,
                                   CONSTRAINT tb_session_pkey PRIMARY KEY (id),
-                                  CONSTRAINT tb_session_unique UNIQUE (application_id, credential_id),
                                   CONSTRAINT fkeeajx9el8utebm4jxai456oef FOREIGN KEY (application_id) REFERENCES oauth.tb_app_role(application_id)
 );
 
